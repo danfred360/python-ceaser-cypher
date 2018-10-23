@@ -4,6 +4,7 @@ Date: October 18, 2018
 '''
 
 import re
+import os
 
 class Ceaser:
     def __init__(self):
@@ -13,26 +14,32 @@ class Ceaser:
     #encrypts a txt file
     class encrypt:
         def __init__(self):
-            self.iname = input('Please enter input file to encrypt --> ')
-            self.oname = input('Please enter output file for encrypted message --> ')
+            #self.iname = input('Please enter input file to encrypt --> ')
+            #self.oname = input('Please enter output file for encrypted message --> ')
+            self.iname = 'input'
+            self.oname = 'output'
             self.h = Ceaser().helper()
 
         #runs all necessary code to encrypt file
         def run(self):
+	    #array of strings that make up input file
             inArr = self.h.readFile(self.iname)
-            self.numArr = self.h.convertStrArrToNumArr(inArr)
-            self.process(input('Enter desired shift --> '))
-
-        def process(self, shift):
-            ans = []
-            for i in self.numArr:
+            s = 5
+            #shift = input('Enter desired shift --> ')
+            charArr = self.h.convertStrArrToCharArrArr(inArr)
+            numArrArr = []
+            for i in charArr:
+                numArrArr.append(self.h.convertCharArrToNumArr(i))
+            shiftedArr = []
+            x = 0
+            for i in numArrArr:
                 temp = []
-                for j in i:
-                    temp.append(int(j) + int(shift))
-                ans.append(temp)
-            x = self.h.convertNumArrToStrArr(ans)
-            print(x)
-            return x
+                for j in numArrArr[x]:
+                    temp.append(self.h.shift(int(j), s))
+                x += 1
+                shiftedArr.append(temp)
+            print(numArrArr)
+            print(shiftedArr)
 
     #decrypts a txt file
     class decrypt:
@@ -43,6 +50,14 @@ class Ceaser:
     class helper:
         def __init__(self):
             pass
+
+        #reads through an array of numbers and returns an array shifted by shift characters
+        def shift(self, numArr, s):
+            ans = []
+            for i in numArr:
+                num = i + s
+                ans.append(num)
+            return ans
 
         #returns an array of lines from inputed txt file
         def readFile(self, i):
@@ -76,12 +91,14 @@ class Ceaser:
                 ans.append(main.alp[int(i)])
             return ans
 
-        def convertStrArrToCharArr(self, strArr):
+		#converts an array of strings to an array of arrays of chars
+        def convertStrArrToCharArrArr(self, strArr):
             ans = []
             for i in strArr:
                 ans.append(list(i))
             return ans
 
+		#convert an array of arrays of char to an array of strings
         def convertCharArrToStrArr(self, charArr):
             ans = []
             for i in charArr:
