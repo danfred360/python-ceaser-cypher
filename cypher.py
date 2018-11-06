@@ -3,7 +3,7 @@ Author: Daniel Frederick
 Date: November 6, 2018
 '''
 
-
+# helper methods
 class Helper:
     def __init__(self):
         self.alp = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p",
@@ -69,13 +69,14 @@ class Helper:
 
         return k
 
+    # returns user input for output file name
     def getOFName(self):
         return input('Enter desired output file name --> ') + '.txt'
-
+    # returns users input for file to read
     def getFName(self):
-        return input('Enter desired input file name --> ') + '.txt'
+        return input('Enter name of file to read --> ') + '.txt'
 
-
+# encrypts a file, and outputs the result
 class Encrypt(Helper):
     def __init__(self):
         self.alp = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p",
@@ -93,7 +94,7 @@ class Encrypt(Helper):
         self.outputFile(ofname, ncontents)
         print('File {} outputed.'.format(ofname))
 
-
+# decrypts a file, and outputs the result
 class Decrypt(Helper):
     def __init__(self):
         self.alp = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p",
