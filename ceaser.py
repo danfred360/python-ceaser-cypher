@@ -116,4 +116,3 @@ main = Ceaser()
 
 temp = Ceaser().encrypt()
 temp.run()
-            
